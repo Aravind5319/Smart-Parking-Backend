@@ -10,7 +10,10 @@ async function getZones(req, res) {
     // Filter by vehicle type
     if (vehicleType) {
       const typeStr = vehicleType.toUpperCase() === 'BIKE' ? '2-Wheeler' : '4-Wheeler';
-      zones = zones.filter((z) => z.vehicleTypes && z.vehicleTypes.includes(typeStr));
+      zones = zones.filter((z) => {
+        const allowedTypes = z.vehicleTypes || (z.name && z.name.toLowerCase().includes('bike') ? ['2-Wheeler'] : ['4-Wheeler', '2-Wheeler']);
+        return allowedTypes.includes(typeStr);
+      });
     }
 
     // Filter by category
@@ -63,13 +66,14 @@ async function getNearestParking(req, res) {
     const typeStr = vehicleType === 'BIKE' ? '2-Wheeler' : '4-Wheeler';
 
     // Filter authorized and available zones
-    const candidateZones = zones.filter(
-      (z) =>
+    const candidateZones = zones.filter((z) => {
+      const allowedTypes = z.vehicleTypes || (z.name && z.name.toLowerCase().includes('bike') ? ['2-Wheeler'] : ['4-Wheeler', '2-Wheeler']);
+      return (
         z.type === 'PARKING_GREEN' &&
-        z.vehicleTypes &&
-        z.vehicleTypes.includes(typeStr) &&
+        allowedTypes.includes(typeStr) &&
         (z.occupiedSlots || 0) < (z.totalSlots || 20)
-    );
+      );
+    });
 
     if (candidateZones.length === 0) {
       return res.status(200).json({
