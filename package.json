@@ -1,0 +1,31 @@
+{
+  "name": "smart-parking-backend",
+  "version": "1.0.0",
+  "description": "Smart Parking & Enforcement REST API Backend for Puducherry Traffic Police (ParkPuduvai)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "setup:db": "node scripts/setup_appwrite.js"
+  },
+  "keywords": [
+    "smart-parking",
+    "puducherry-police",
+    "appwrite",
+    "iot",
+    "express"
+  ],
+  "author": "Puducherry Smart City & Traffic Division",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "morgan": "^1.10.0",
+    "node-appwrite": "^14.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
