@@ -8,6 +8,7 @@ const userRoutes = require('./routes/userRoutes');
 const violationRoutes = require('./routes/violationRoutes');
 const advisoryRoutes = require('./routes/advisoryRoutes');
 const sessionRoutes = require('./routes/sessionRoutes');
+const cameraRoutes = require('./routes/cameraRoutes');
 const { DATABASE_ID, PROJECT_ID } = require('./config/appwrite');
 
 const app = express();
@@ -41,6 +42,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/violations', violationRoutes);
 app.use('/api/advisories', advisoryRoutes);
 app.use('/api/sessions', sessionRoutes);
+app.use('/api/camera', cameraRoutes);
 
 // Root route
 app.get('/', (req, res) => {
